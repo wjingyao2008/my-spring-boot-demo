@@ -36,7 +36,7 @@ public class BookController {
 //    public Book findBook(String id) {
 //        LOGGER.info("we got post");
 //        Book book = new Book();
-//        book.setName(id);
+//        book.setCreateBy(id);
 //        return book;
 //    }
 

@@ -9,25 +9,25 @@ import javax.persistence.Table;
  * Created by yanyan on 2017/07/17.
  */
 @Entity
-@Table(name = "employee")
-public class Employee {
+@Table(name = "task")
+public class TaskRecord {
 
-    public Employee(Integer id, String name, String description) {
+    public TaskRecord(Integer id, String createBy, String description) {
         this.id = id;
-        this.name = name;
+        this.createBy = createBy;
         this.description = description;
     }
 
     private @Id Integer id;
 
-    private String name, description;
+    private String createBy, description;
 
-    public String getName() {
-        return name;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
     public String getDescription() {
@@ -38,11 +38,11 @@ public class Employee {
         this.description = description;
     }
 
-    private Employee() {
+    private TaskRecord() {
     }
 
-    public Employee(String name, String description) {
-        this.name = name;
+    public TaskRecord(String createBy, String description) {
+        this.createBy = createBy;
         this.description = description;
     }
 
