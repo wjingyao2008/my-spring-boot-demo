@@ -70,8 +70,8 @@ public class CompanyService {
     }
     @Transactional
     public String addBulkEmployee() {
-        createNewEmployee("cb1");
-        bulkAddTask("cb1");
+        createNewEmployee("cb2");
+        bulkAddTask("cb2");
 //        raiseException();
         return "done";
     }
@@ -99,6 +99,7 @@ public class CompanyService {
             protected void doInTransactionWithoutResult(TransactionStatus status) {
 //                operationInJdbcTemplate();
                 operationInNamedJdbcTemplate();
+                throw new RuntimeException("inside the trans");
             }
 
             private void operationInJdbcTemplate() {
@@ -124,7 +125,8 @@ public class CompanyService {
             }
 
             private void operationInNamedJdbcTemplate() {
-                List<TaskRecord> allTasks = IntStream.range(5000, 5600).mapToObj(
+                int startInclusive = new Random().nextInt();
+                List<TaskRecord> allTasks = IntStream.range(startInclusive, startInclusive + 100).mapToObj(
                         i -> new TaskRecord(i, name, "task:" + i)).collect(Collectors.toList());
                 String sql = "INSERT INTO task (id,create_by,description) VALUES (:id,:createBy,:description)";
 
