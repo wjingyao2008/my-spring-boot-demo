@@ -3,10 +3,9 @@ package yang.yang.springbootdemo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import yang.yang.springbootdemo.config.DependencyConfig;
+
 //this is same as same as @Configuration @EnableAutoConfiguration @ComponentScan
 //@SpringBootApplication
 @SpringBootConfiguration
