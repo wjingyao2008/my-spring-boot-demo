@@ -1,16 +1,26 @@
 package yang.yang.springbootdemo;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.boot.test.mock.mockito.*;
-import yang.yang.springbootdemo.resource.BookController;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import yang.yang.springbootdemo.entity.Employee;
+import yang.yang.springbootdemo.resource.CompanyResource;
+import yang.yang.springbootdemo.service.CompanyService;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Arrays;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -19,21 +29,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by yanyan on 2017/07/05.
  */
-@RunWith(SpringRunner.class)
-@WebMvcTest(BookController.class)
+@RunWith(MockitoJUnitRunner.class)
 public class BookControllerTest {
 
     @Autowired
-    private MockMvc mvc;
-    @MockBean
-    private BookController mockController;
+    private MockMvc mockMvc;
+    @InjectMocks
+    private CompanyResource companyResource;
+    @Mock
+    private CompanyService companyService;
+
+    @Before
+    public void setUp() throws Exception {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(companyResource).build();
+    }
 
     @Test
     public void name() throws Exception {
-        when(mockController.getAllBooks()).thenReturn("abc");
-        assertEquals("abc", mockController.getAllBooks());
-        this.mvc.perform(get("/books").accept(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk()).andExpect(content().string("done"));
+        when(companyService.getAllEmployees()).thenReturn(Arrays.asList(new Employee("yang", "Dev")));
+        this.mockMvc.perform(get("/company/all").accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andExpect(content().json("[{id:null,name:yang,description:Dev}]"));
     }
 
 }
