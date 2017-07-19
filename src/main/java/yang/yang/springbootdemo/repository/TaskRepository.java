@@ -13,5 +13,5 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends CrudRepository<TaskRecord, Long> {
 
-    List<Employee> findByCreateBy(String name);
+    List<TaskRecord> findByCreateBy(String name);
 }

@@ -24,3 +24,14 @@ UUID - generate a UUID before doing an insert
 2. add @ConfigurationProperties
 3. visit /configprops 
 4. for test only. set management.security.enabled=false
+
+##  @ResponseBody and @RestController
+1. RestController is combine of @ResponseBody and @Controller
+2. ResponseBody make you direct return value without View.
+
+## profile
+profile can be actived in group by "prod",activate prod will also activate prodd,prodmq
+spring.profiles: prod
+spring.profiles.include:
+  - proddb
+  - prodmq
