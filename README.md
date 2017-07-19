@@ -35,3 +35,6 @@ spring.profiles: prod
 spring.profiles.include:
   - proddb
   - prodmq
+## color log spring.output.ansi.enabled
+
+## jeseyConfig enable the JRX

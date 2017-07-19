@@ -1,6 +1,7 @@
 package yang.yang.springbootdemo.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import yang.yang.springbootdemo.other.ConfigProperties;
@@ -13,6 +14,10 @@ import yang.yang.springbootdemo.other.ConfigProperties;
 @EnableConfigurationProperties(ConfigProperties.class)
 public class DependencyConfig {
 
+    @Bean
+    JerseyConfig getJeseyConfig(){
+        return new JerseyConfig();
+    }
 //    @Bean
 //    @Autowired
 //    @Primary
