@@ -18,3 +18,9 @@ Sequence - the value comes from a db sequence
 table - the value comes from another table in the database
 auto - pick one of the above based on the database type
 UUID - generate a UUID before doing an insert
+
+## How Find parameter
+1. add maven pom <artifactId>spring-boot-starter-actuator</artifactId>
+2. add @ConfigurationProperties
+3. visit /configprops 
+4. for test only. set management.security.enabled=false
