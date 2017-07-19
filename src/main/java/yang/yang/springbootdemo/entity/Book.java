@@ -1,4 +1,4 @@
-package yang.yang.springbootdemo;
+package yang.yang.springbootdemo.entity;
 
 /**
  * Created by yanyan on 2017/07/05.
