@@ -10,29 +10,33 @@ import org.springframework.web.bind.annotation.RestController;
 import yang.yang.springbootdemo.entity.Employee;
 import yang.yang.springbootdemo.service.CompanyService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by yanyan on 2017/07/17.
  */
-@Component
-@RequestMapping("/company")
+//RestController is combine of @Controller and @ResponseBody
+@RestController
+@RequestMapping("company")
 public class CompanyResource {
 
-    @Autowired
-    private CompanyService service;
+    private final CompanyService service;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Autowired
+    public CompanyResource(CompanyService service) {
+        this.service = service;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<Employee> getAllEmployeesByName(@RequestParam("name")String name) {
+    public List<Employee> getAllEmployeesByName(@RequestParam("name") String name) {
         return service.getAllEmployees(name);
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     @ResponseBody
     public List<Employee> getAllEmployees() {
-       return service.getAllEmployees();
+        return service.getAllEmployees();
     }
 
     @RequestMapping(value = "buck_insert", method = RequestMethod.PUT)

@@ -1,26 +1,16 @@
 package yang.yang.springbootdemo.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
+import yang.yang.springbootdemo.other.ConfigProperties;
 
 /**
  * Created by yanyan on 2017/07/05.
  */
 @Configuration
-@ComponentScan(basePackages = { "yang.yang.springbootdemo"})
+@ComponentScan(basePackages = { "yang.yang.springbootdemo.repository","yang.yang.springbootdemo.resource","yang.yang.springbootdemo.entity","yang.yang.springbootdemo.service"})
+@EnableConfigurationProperties(ConfigProperties.class)
 public class DependencyConfig {
 
 //    @Bean

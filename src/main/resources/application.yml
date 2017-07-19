@@ -1,0 +1,12 @@
+appbase:
+    enable: false
+    roles:
+     - 1
+     - 2
+     - 3
+#  spring:
+#      datasource:
+#          url: jdbc:mysql://localhost:3306/test
+#          password:
+#          driver-class-createBy: com.mysql.jdbc.Driver
+

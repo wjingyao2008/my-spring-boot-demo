@@ -16,6 +16,7 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 import yang.yang.springbootdemo.entity.Employee;
 import yang.yang.springbootdemo.entity.TaskRecord;
+import yang.yang.springbootdemo.other.ConfigProperties;
 import yang.yang.springbootdemo.repository.EmployeeRepository;
 import yang.yang.springbootdemo.repository.TaskRepository;
 
@@ -39,15 +40,18 @@ public class CompanyService {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final JdbcTemplate jdbcTemplate;
     private final TransactionTemplate transactionTemplate;
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private TaskRepository taskRepository;
+    private final EmployeeRepository employeeRepository;
+    private final TaskRepository taskRepository;
+    private final ConfigProperties configProperties;
 
-    public CompanyService(JdbcTemplate jdbcTemplate, PlatformTransactionManager transactionManager) {
+    @Autowired
+    public CompanyService(JdbcTemplate jdbcTemplate, PlatformTransactionManager transactionManager, EmployeeRepository employeeRepository, TaskRepository taskRepository, ConfigProperties configProperties) {
         this.jdbcTemplate = jdbcTemplate;
         namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.employeeRepository = employeeRepository;
+        this.taskRepository = taskRepository;
+        this.configProperties = configProperties;
     }
 
     @Transactional
@@ -58,7 +62,8 @@ public class CompanyService {
     }
     @Transactional
     public List<Employee> getAllEmployees() {
-
+        LOGGER.info("configProperties is enable:{}", configProperties.isEnable());
+        LOGGER.info("configProperties roles:{}", configProperties.getRoles());
         LOGGER.info("get all employees ");
         List<Employee> employeeList = new ArrayList<>();
         Iterable<Employee> all = employeeRepository.findAll();
@@ -93,7 +98,7 @@ public class CompanyService {
     }
 
     @Transactional
-    public void bulkAddTask(String name) {
+    private void bulkAddTask(String createBy) {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             // the code in this method executes in a transactional context
             protected void doInTransactionWithoutResult(TransactionStatus status) {
@@ -104,7 +109,7 @@ public class CompanyService {
 
             private void operationInJdbcTemplate() {
                 List<TaskRecord> allTasks = IntStream.range(0, 100).mapToObj(
-                        i -> new TaskRecord(name, "task:" + i)).collect(
+                        i -> new TaskRecord(createBy, "task:" + i)).collect(
                         Collectors.toList());
                 String sql = "INSERT INTO task (id,create_by,description) VALUES (?,?,?)";
                 jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
@@ -127,7 +132,7 @@ public class CompanyService {
             private void operationInNamedJdbcTemplate() {
                 int startInclusive = new Random().nextInt();
                 List<TaskRecord> allTasks = IntStream.range(startInclusive, startInclusive + 100).mapToObj(
-                        i -> new TaskRecord(i, name, "task:" + i)).collect(Collectors.toList());
+                        i -> new TaskRecord(i, createBy, "task:" + i)).collect(Collectors.toList());
                 String sql = "INSERT INTO task (id,create_by,description) VALUES (:id,:createBy,:description)";
 
                 List<SqlParameterSource> parameters = new ArrayList<>();
