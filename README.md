@@ -38,6 +38,6 @@ spring.profiles.include:
 ## color log spring.output.ansi.enabled
 
 ## jeseyConfig enable the JRX
-
+but this will disable TOMCAT
 ## spring can simple the kafka
 ## 

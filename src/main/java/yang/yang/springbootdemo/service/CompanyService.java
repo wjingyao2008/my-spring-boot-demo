@@ -56,13 +56,14 @@ public class CompanyService {
     }
 
     @Transactional
-//    @LogExecutionTime
+    @LogExecutionTime
     public List<Employee> getAllEmployees(String name) {
 
         LOGGER.info("get employee by {}", name);
         return employeeRepository.findByName(name);
     }
     @Transactional
+    @LogExecutionTime
     public List<Employee> getAllEmployees() {
         LOGGER.info("configProperties is enable:{}", configProperties.isEnable());
         LOGGER.info("configProperties roles:{}", configProperties.getRoles());
@@ -76,6 +77,7 @@ public class CompanyService {
         return employeeList;
     }
     @Transactional
+    @LogExecutionTime
     public String addBulkEmployee() {
         createNewEmployee("cb2");
         bulkAddTask("cb2");
