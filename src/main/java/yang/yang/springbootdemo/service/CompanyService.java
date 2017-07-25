@@ -14,6 +14,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
+import yang.yang.springbootdemo.aop.LogExecutionTime;
 import yang.yang.springbootdemo.entity.Employee;
 import yang.yang.springbootdemo.entity.TaskRecord;
 import yang.yang.springbootdemo.other.ConfigProperties;
@@ -55,6 +56,7 @@ public class CompanyService {
     }
 
     @Transactional
+//    @LogExecutionTime
     public List<Employee> getAllEmployees(String name) {
 
         LOGGER.info("get employee by {}", name);
