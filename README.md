@@ -41,3 +41,17 @@ spring.profiles.include:
 but this will disable TOMCAT
 ## spring can simple the kafka
 ## 
+
+
+# MicroService
+## 1. Build
+mvn clean package
+java -jar spring-boot-demo-0.0.1-SNAPSHOT.jar
+## 2. Registration and Discovery service (Eureka service)
+```$xslt
+  <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-eureka-server</artifactId>
+    </dependency>
+```
+ https://github.com/Netflix/eureka/wiki/Configuring-Eureka
