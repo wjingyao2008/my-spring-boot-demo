@@ -27,19 +27,16 @@ public class CompanyResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
     public List<Employee> getAllEmployeesByName(@RequestParam("name") String name) {
         return service.getAllEmployees(name);
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    @ResponseBody
     public List<Employee> getAllEmployees() {
         return service.getAllEmployees();
     }
 
     @RequestMapping(value = "buck_insert", method = RequestMethod.PUT)
-    @ResponseBody
     public String addBulkEmployee() {
         return service.addBulkEmployee();
     }
